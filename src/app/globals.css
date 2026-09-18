@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   ────────────────────────────────────────────────────────────── */
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
+  --font-hand: var(--font-caveat);
+
+  --color-noir-950: #080808;
+  --color-noir-900: #0c0c0c;
+  --color-noir-850: #111111;
+  --color-noir-800: #161616;
+  --color-noir-700: #1c1c1c;
+  --color-noir-600: #262626;
+  --color-noir-500: #333333;
+
+  --color-ivory-50: #fcf8f1;
+  --color-ivory-100: #f6efe3;
+  --color-ivory-200: #ece0cc;
+  --color-ivory-300: #dfcfb6;
+  --color-ivory-400: #c7b491;
+  --color-ivory-500: #a99570;
+
+  --color-champagne-200: #f0e4cc;
+  --color-champagne-300: #e6d5b5;
+  --color-champagne-400: #d9c9a8;
+  --color-champagne-500: #c3ad86;
+
+  --color-rose-200: #eccfd6;
+  --color-rose-300: #dca9b6;
+  --color-rose-400: #c67f91;
+  --color-rose-500: #ad5c73;
+  --color-rose-600: #94445c;
+  --color-rose-700: #6c2938;
+  --color-rose-800: #4a1c28;
+  --color-rose-900: #2c0f17;
+
+  --animate-slow-zoom: slow-zoom 36s ease-in-out infinite alternate;
+  --animate-bounce-slow: bounce-slow 2.6s ease-in-out infinite;
+  --animate-drift: drift 8s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 4s ease-in-out infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-grain-shift: grain-shift 0.6s steps(1) infinite;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   KEYFRAMES
+   ────────────────────────────────────────────────────────────── */
+
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-6px) translateX(3px); }
+  50% { transform: translateY(-2px) translateX(-2px); }
+  75% { transform: translateY(-8px) translateX(1px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, 4%); }
+  30% { transform: translate(5%, -3%); }
+  50% { transform: translate(-4%, 1%); }
+  70% { transform: translate(2%, -5%); }
+  90% { transform: translate(-1%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes bar-idle {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(0.65); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes sparkle-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translate(var(--sparkle-x, 4px), var(--sparkle-y, 10px))
+      scale(0.7);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(var(--sparkle-x, 4px), var(--sparkle-y, 14px))
+      scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   BASE
+   ────────────────────────────────────────────────────────────── */
+
+/* Explicit tokens for use in plain CSS (independent of Tailwind utilities).
+   `@theme inline` inlines values into utilities, so the custom properties
+   below guarantee var(--...) references work anywhere in this stylesheet. */
+:root {
+  --color-noir-950: #080808;
+  --color-noir-900: #0c0c0c;
+  --color-noir-850: #111111;
+  --color-noir-800: #161616;
+  --color-noir-700: #1c1c1c;
+  --color-noir-600: #262626;
+  --color-noir-500: #333333;
+
+  --color-ivory-50: #fcf8f1;
+  --color-ivory-100: #f6efe3;
+  --color-ivory-200: #ece0cc;
+  --color-ivory-300: #dfcfb6;
+  --color-ivory-400: #c7b491;
+  --color-ivory-500: #a99570;
+
+  --color-champagne-200: #f0e4cc;
+  --color-champagne-300: #e6d5b5;
+  --color-champagne-400: #d9c9a8;
+  --color-champagne-500: #c3ad86;
+
+  --color-rose-200: #eccfd6;
+  --color-rose-300: #dca9b6;
+  --color-rose-400: #c67f91;
+  --color-rose-500: #ad5c73;
+  --color-rose-600: #94445c;
+  --color-rose-700: #6c2938;
+  --color-rose-800: #4a1c28;
+  --color-rose-900: #2c0f17;
+
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
+  --font-hand: var(--font-caveat);
+
+  --animate-slow-zoom: slow-zoom 36s ease-in-out infinite alternate;
+  --animate-bounce-slow: bounce-slow 2.6s ease-in-out infinite;
+  --animate-drift: drift 8s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 4s ease-in-out infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-grain-shift: grain-shift 0.6s steps(1) infinite;
+}
+
+::selection {
+  background: var(--color-rose-700);
+  color: var(--color-ivory-50);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-noir-950);
+  color: var(--color-ivory-100);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-noir-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-noir-500);
+  border-radius: 99px;
+}
+
+/* Horizontal galleries: hide scrollbars but keep scrollability */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   UTILITY CLASSES
+   ────────────────────────────────────────────────────────────── */
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Film grain overlay — very subtle, cinematic texture */
+.film-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -20%;
+  width: 140%;
+  height: 140%;
+  z-index: 50;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: var(--animate-grain-shift);
+}
+
+/* Vertical divider for section spacing */
+.section-divider {
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-champagne-400),
+    transparent
+  );
+  margin: 0 auto;
+}
+
+/* Range input styling (audio seek, volume) */
+input[type="range"].player-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--color-noir-500);
+  border-radius: 99px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"].player-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-champagne-400);
+  border: 2px solid var(--color-noir-950);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+input[type="range"].player-range::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+input[type="range"].player-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-champagne-400);
+  border: 2px solid var(--color-noir-950);
+  cursor: pointer;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   REDUCED MOTION
+   ────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .film-grain {
+    display: none;
+  }
+}
