@@ -1,6 +1,10 @@
 # Her Story — a birthday website
 
+![Her Story — cinematic birthday experience](screenshots/preview.png)
+
 A single-page, cinematic birthday experience built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, Framer Motion, and GSAP. Everything is client-rendered and static — no backend, no database.
+
+**Live demo:** <https://herstory.vercel.app>
 
 ## Quick start
 
